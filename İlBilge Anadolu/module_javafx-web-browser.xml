@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_javafx-web-browser" default="compile.module.javafx-web-browser">
+  <dirname property="module.javafx-web-browser.basedir" file="${ant.file.module_javafx-web-browser}"/>
+  
+  <property name="module.jdk.home.javafx-web-browser" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.javafx-web-browser" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.javafx-web-browser" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.javafx-web-browser" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="javafx-web-browser.output.dir" value="${module.javafx-web-browser.basedir}/target/classes"/>
+  <property name="javafx-web-browser.testoutput.dir" value="${module.javafx-web-browser.basedir}/target/test-classes"/>
+  
+  <path id="javafx-web-browser.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="javafx-web-browser.module.production.classpath">
+    <path refid="${module.jdk.classpath.javafx-web-browser}"/>
+    <path refid="library.maven:_com.jfoenix:jfoenix:8.0.2.classpath"/>
+    <path refid="library.maven:_commons-validator:commons-validator:1.6.classpath"/>
+    <path refid="library.maven:_org.jsoup:jsoup:1.11.2.classpath"/>
+    <path refid="library.maven:_com.github.imcdonagh:image4j:0.7.2.classpath"/>
+  </path>
+  
+  <path id="javafx-web-browser.runtime.production.module.classpath">
+    <pathelement location="${javafx-web-browser.output.dir}"/>
+    <path refid="library.maven:_com.jfoenix:jfoenix:8.0.2.classpath"/>
+    <path refid="library.maven:_commons-validator:commons-validator:1.6.classpath"/>
+    <path refid="library.maven:_org.jsoup:jsoup:1.11.2.classpath"/>
+    <path refid="library.maven:_com.github.imcdonagh:image4j:0.7.2.classpath"/>
+  </path>
+  
+  <path id="javafx-web-browser.module.classpath">
+    <path refid="${module.jdk.classpath.javafx-web-browser}"/>
+    <pathelement location="${javafx-web-browser.output.dir}"/>
+    <path refid="library.maven:_com.jfoenix:jfoenix:8.0.2.classpath"/>
+    <path refid="library.maven:_commons-validator:commons-validator:1.6.classpath"/>
+    <path refid="library.maven:_org.jsoup:jsoup:1.11.2.classpath"/>
+    <path refid="library.maven:_com.github.imcdonagh:image4j:0.7.2.classpath"/>
+  </path>
+  
+  <path id="javafx-web-browser.runtime.module.classpath">
+    <pathelement location="${javafx-web-browser.testoutput.dir}"/>
+    <pathelement location="${javafx-web-browser.output.dir}"/>
+    <path refid="library.maven:_com.jfoenix:jfoenix:8.0.2.classpath"/>
+    <path refid="library.maven:_commons-validator:commons-validator:1.6.classpath"/>
+    <path refid="library.maven:_org.jsoup:jsoup:1.11.2.classpath"/>
+    <path refid="library.maven:_com.github.imcdonagh:image4j:0.7.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.javafx-web-browser">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.javafx-web-browser">
+    <patternset refid="excluded.from.module.javafx-web-browser"/>
+  </patternset>
+  
+  <path id="javafx-web-browser.module.sourcepath">
+    <dirset dir="${module.javafx-web-browser.basedir}">
+      <include name="resources"/>
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.javafx-web-browser" depends="compile.module.javafx-web-browser.production,compile.module.javafx-web-browser.tests" description="Compile module JavaFX-Web-Browser"/>
+  
+  <target name="compile.module.javafx-web-browser.production" depends="register.custom.compilers" description="Compile module JavaFX-Web-Browser; production classes">
+    <mkdir dir="${javafx-web-browser.output.dir}"/>
+    <javac2 destdir="${javafx-web-browser.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.javafx-web-browser}/javac">
+      <compilerarg line="${compiler.args.javafx-web-browser}"/>
+      <bootclasspath refid="javafx-web-browser.module.bootclasspath"/>
+      <classpath refid="javafx-web-browser.module.production.classpath"/>
+      <src refid="javafx-web-browser.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.javafx-web-browser"/>
+    </javac2>
+    
+    <copy todir="${javafx-web-browser.output.dir}">
+      <fileset dir="${module.javafx-web-browser.basedir}/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.javafx-web-browser.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.javafx-web-browser.tests" depends="register.custom.compilers,compile.module.javafx-web-browser.production" description="compile module JavaFX-Web-Browser; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.javafx-web-browser" description="cleanup module">
+    <delete dir="${javafx-web-browser.output.dir}"/>
+    <delete dir="${javafx-web-browser.testoutput.dir}"/>
+  </target>
+</project>

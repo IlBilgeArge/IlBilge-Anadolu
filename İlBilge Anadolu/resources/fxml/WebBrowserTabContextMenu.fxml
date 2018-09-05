@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+
+<fx:root type="ContextMenu" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <MenuItem fx:id="newTab" mnemonicParsing="false" text="Yeni Sekme" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem fx:id="reloadTab" mnemonicParsing="false" text="Yenile" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem fx:id="closeOtherTabs" mnemonicParsing="false" text="Diğer Sekmeleri Kapat" />
+      <MenuItem fx:id="closeTabsRight" mnemonicParsing="false" text="Sağdaki Sekmeleri Kapat" />
+      <MenuItem fx:id="closeTabsLeft" mnemonicParsing="false" text="Soldaki Sekmeleri Kapat" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem fx:id="closeTab" mnemonicParsing="false" text="Sekmeyi Kapat" />
+  </items>
+</fx:root>
